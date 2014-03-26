@@ -87,6 +87,10 @@ class TwitterProvider implements AuthenticationProviderInterface
 
     private function createAuthenticatedToken(array $accessToken)
     {
+        /* Persist-less standard token return on authentication */
+        return new TwitterUserToken($accessToken['user_id'], null, array('ROLE_TWITTER_USER'));
+        
+        /*
         if (null === $this->userProvider) {
             return new TwitterUserToken($accessToken['screen_name'], null, array('ROLE_TWITTER_USER'));
         }
@@ -107,5 +111,7 @@ class TwitterProvider implements AuthenticationProviderInterface
         }
 
         return new TwitterUserToken($user, null, $user->getRoles());
+         * 
+         */
     }
 }
